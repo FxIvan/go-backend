@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/spf13/viper"
@@ -27,6 +28,7 @@ func NewEnv() *Env {
 	viper.SetConfigFile(".env")
 
 	err := viper.ReadInConfig()
+	fmt.Print(err)
 	if err != nil {
 		log.Fatal("Can't find the file .env : ", err)
 	}
@@ -39,6 +41,6 @@ func NewEnv() *Env {
 	if env.AppEnv == "development" {
 		log.Println("The App is running in development env")
 	}
-
+	fmt.Println("The App is running in production env", env)
 	return &env
 }
