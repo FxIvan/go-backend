@@ -41,3 +41,16 @@ func NewMongoDatabase(env *Env) mongo.Client {
 
 	return client
 }
+
+func CloseMongoDBConnection(client mongo.Client) {
+	if client == nil {
+		return
+	}
+
+	err := client.Disconnect(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("Connection to MongoDB closed.")
+}

@@ -15,3 +15,7 @@ func App() Application {
 	app.Mongo = NewMongoDatabase(app.Env)
 	return *app
 }
+
+func (app *Application) CloseDBConnection() {
+	CloseMongoDBConnection(app.Mongo)
+}

@@ -2,12 +2,10 @@ package mongo
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"reflect"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/bsoncodec"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -75,27 +73,29 @@ func NewClient(connection string) (Client, error) {
 	if err != nil {
 		panic(err)
 	}
-	defer func() {
-		if err := client.Disconnect(context.TODO()); err != nil {
-			panic(err)
-		}
-	}()
-	coll := client.Database("sample_mflix").Collection("movies")
-	title := "Back to the Future"
-	var result bson.M
-	err = coll.FindOne(context.TODO(), bson.D{{"title", title}}).Decode(&result)
-	if err == mongo.ErrNoDocuments {
-		fmt.Printf("No document was found with the title %s\n", title)
-		return nil, err
-	}
-	if err != nil {
-		panic(err)
-	}
-	jsonData, err := json.MarshalIndent(result, "", "    ")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Printf("%s\n", jsonData)
+	/*
+		defer func() {
+			if err := client.Disconnect(context.TODO()); err != nil {
+				panic(err)
+			}
+		}()
+			coll := client.Database("sample_mflix").Collection("movies")
+			title := "Back to the Future"
+			var result bson.M
+			err = coll.FindOne(context.TODO(), bson.D{{"title", title}}).Decode(&result)
+			if err == mongo.ErrNoDocuments {
+				fmt.Printf("No document was found with the title %s\n", title)
+				return nil, err
+			}
+			if err != nil {
+				panic(err)
+			}
+			jsonData, err := json.MarshalIndent(result, "", "    ")
+			if err != nil {
+				panic(err)
+			}
+			fmt.Printf("%s\n", jsonData)
+	*/
 	return &mongoClient{cl: client}, nil
 }
 
