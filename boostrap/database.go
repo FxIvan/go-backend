@@ -24,21 +24,23 @@ func NewMongoDatabase(env *Env) mongo.Client {
 		mongodbURI = fmt.Sprintf("mongodb+srv://%s:%s", dbHost, dbPort)
 	}
 
-	client, err := mongo.NewClient(mongodbURI)
-	if err != nil {
-		log.Fatal(err)
-	}
+	client, _ := mongo.NewClient(mongodbURI)
 
-	err = client.Connect(ctx)
-	if err != nil {
+	/*if err != nil {
 		log.Fatal(err)
-	}
+	}*/
 
-	err = client.Ping(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
+	client.Connect(ctx)
+	/*
+		if err != nil {
+			log.Fatal(err)
+		}
 
+		err = client.Ping(ctx)
+		if err != nil {
+			log.Fatal(err)
+		}
+	*/
 	return client
 }
 

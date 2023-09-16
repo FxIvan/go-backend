@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
+	route "github.com/FxIvan/go-backend/api/route"
 	bootstrap "github.com/FxIvan/go-backend/boostrap"
-	route "github.com/FxIvan/go-backend/boostrap/api/route"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,5 +23,5 @@ func main() {
 	gin := gin.Default()
 	route.Setup(env, timeout, db, gin)
 
-	//gin.Run(fmt.Sprintf(":%d", env.SERVER_ADDRESS))
+	gin.Run(env.ServerAddress)
 }
